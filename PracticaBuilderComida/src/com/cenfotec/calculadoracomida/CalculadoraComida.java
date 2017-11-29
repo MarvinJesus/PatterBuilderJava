@@ -32,26 +32,26 @@ public class CalculadoraComida {
 	 */
    private InformacionComida cargarBuilder(int pvalor) {
 	   BaseDatos bd = new BaseDatos();
-	   builder = new InformacionComidaBuilder("Pizza",240,Medida.G);
+	   builder = new InformacionComidaBuilder(" ",0,Medida.G);
 	   switch (pvalor){
 		case 1:
 			valorComidas = bd.obtenerValNutriPizza();
-			builder = new InformacionComidaBuilder("Pizza",valorComidas[1],Medida.G);
+			builder.nombre("Pizza");
 			updateBuilder();
 		    return builder.createInformacionComida();
-		case 2:
+		case 2: 
 			valorComidas = bd.obtenerValNutriOllaCarne();
-			builder = new InformacionComidaBuilder("Olla De Carne",valorComidas[1],Medida.G);
+			builder.nombre("Olla Carne");
 			updateBuilder();
 		    return builder.createInformacionComida();
 	case 3:
 			valorComidas = bd.obtenerValNutriHamburgesa();
-			builder = new InformacionComidaBuilder("Hamburgesa",240,Medida.G);		    
+			builder.nombre("Hamburgesa");	    
 			updateBuilder();
 		    return builder.createInformacionComida();
 	case 4:
 			valorComidas = bd.obtenerValNutriChocolate();
-			builder = new InformacionComidaBuilder("Chocolate",240,Medida.G);		    
+			builder.nombre("Chocolate");		    
 			updateBuilder();
 		    return  builder.createInformacionComida();
 	default:
@@ -64,7 +64,8 @@ public class CalculadoraComida {
     * Metodo que actualiza el builder.
     */
    private void updateBuilder() {
-		builder.porciones(valorComidas[0]);
+		builder.cantidadPorcion(valorComidas[0]);
+		builder.porciones(valorComidas[1]);
 	    builder.calorias(valorComidas[2]);
 	    builder.grasa(valorComidas[3]);
 	    builder.sodio(valorComidas[4]);
