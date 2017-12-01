@@ -34,7 +34,6 @@ public class CalculadoraComida {
 	 */
    private InformacionComida cargarBuilder(int pvalor) {
 	   BaseDatos bd = new BaseDatos();
-	   builder = new InformacionComidaBuilder("Pizza",240,Medida.G);
 	   switch (pvalor){
 		case 1:
 			valorComidas = bd.obtenerValNutriPizza();
