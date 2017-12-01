@@ -10,7 +10,9 @@ public class CalculadoraComida {
 	private static volatile CalculadoraComida instance = null;
 	private int[] valorComidas = new int[7];
 	private InformacionComidaBuilder builder;
-	private  CalculadoraComida() {}
+	private  CalculadoraComida() {
+		 builder = new InformacionComidaBuilder(" ",0,Medida.G);
+	}
 	public static CalculadoraComida getInstance() {
 		if(instance == null) {
 			synchronized(CalculadoraComida.class){
@@ -32,26 +34,26 @@ public class CalculadoraComida {
 	 */
    private InformacionComida cargarBuilder(int pvalor) {
 	   BaseDatos bd = new BaseDatos();
-	   builder = new InformacionComidaBuilder(" ",0,Medida.G);
+	   builder = new InformacionComidaBuilder("Pizza",240,Medida.G);
 	   switch (pvalor){
 		case 1:
 			valorComidas = bd.obtenerValNutriPizza();
-			builder.nombre("Pizza");
+			builder = new InformacionComidaBuilder("Pizza",valorComidas[1],Medida.G);
 			updateBuilder();
 		    return builder.createInformacionComida();
-		case 2: 
+		case 2:
 			valorComidas = bd.obtenerValNutriOllaCarne();
-			builder.nombre("Olla Carne");
+			builder = new InformacionComidaBuilder("Olla De Carne",valorComidas[1],Medida.G);
 			updateBuilder();
 		    return builder.createInformacionComida();
 	case 3:
 			valorComidas = bd.obtenerValNutriHamburgesa();
-			builder.nombre("Hamburgesa");	    
+			builder = new InformacionComidaBuilder("Hamburgesa",240,Medida.G);		    
 			updateBuilder();
 		    return builder.createInformacionComida();
 	case 4:
 			valorComidas = bd.obtenerValNutriChocolate();
-			builder.nombre("Chocolate");		    
+			builder = new InformacionComidaBuilder("Chocolate",240,Medida.G);		    
 			updateBuilder();
 		    return  builder.createInformacionComida();
 	default:
@@ -64,8 +66,7 @@ public class CalculadoraComida {
     * Metodo que actualiza el builder.
     */
    private void updateBuilder() {
-		builder.cantidadPorcion(valorComidas[0]);
-		builder.porciones(valorComidas[1]);
+		builder.porciones(valorComidas[0]);
 	    builder.calorias(valorComidas[2]);
 	    builder.grasa(valorComidas[3]);
 	    builder.sodio(valorComidas[4]);
