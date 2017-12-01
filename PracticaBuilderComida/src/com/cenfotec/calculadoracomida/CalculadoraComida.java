@@ -10,8 +10,10 @@ public class CalculadoraComida {
 	private static volatile CalculadoraComida instance = null;
 	private int[] valorComidas = new int[7];
 	private InformacionComidaBuilder builder;
+	 BaseDatos bd;
 	private  CalculadoraComida() {
 		 builder = new InformacionComidaBuilder(" ",0,Medida.G);
+		 bd = new BaseDatos();
 	}
 	public static CalculadoraComida getInstance() {
 		if(instance == null) {
@@ -33,7 +35,6 @@ public class CalculadoraComida {
 	 * @return InformacionComida
 	 */
    private InformacionComida cargarBuilder(int pvalor) {
-	   BaseDatos bd = new BaseDatos();
 	   switch (pvalor){
 		case 1:
 			valorComidas = bd.obtenerValNutriPizza();
